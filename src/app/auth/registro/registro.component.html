@@ -1,0 +1,79 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.png" alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0">                
+        
+        <p-messages  [enableService]="true" > </p-messages>
+        
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-5">
+                    <i class="pi pi-user-plus icono-principal"></i>
+                    <div class="text-900 text-3xl font-medium mb-3">Crear una cuenta</div>
+                </div>
+
+                <div>
+                    <form   *ngIf="!isSuccessful"
+                        name="form"
+                        (ngSubmit)="f.form.valid && onSubmit()"
+                        #f="ngForm"
+                        novalidate>
+                    
+
+                        <div>
+                            <span class="flex p-float-label">
+                                <input id="email" name="email"  type="email" pInputText  class="form-control w-full md:w-30rem mb-5"
+                                    [(ngModel)]="form.email"
+                                    required
+                                    email
+                                    minlength="3"
+                                    #email="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && email.errors }">                         
+                                <label for="email" class="block font-medium mb-2">Email</label>
+                            </span>
+                            <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
+                                <i class="pi pi-angle-up" style="float: left;"></i>
+                                <div *ngIf="email.errors['required']">El correo es obligatorio</div>
+                                <div *ngIf="email.errors['email']"> Debe ser un correo válido </div>
+                            </div> 
+
+                            <span class="flex p-float-label next-input">
+                                <input id="username" name="username" type="text" pInputText  class="w-full md:w-30rem mb-5"
+                                    [(ngModel)]="form.username"
+                                    required
+                                    minlength="10"
+                                    maxlength="15"
+                                    #username="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && username.errors }">                                                                          
+                                <label for="username" class="block font-medium mb-2"># Identificación o DNI</label>                                                
+                            </span>
+                            <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
+                                <i class="pi pi-angle-up" style="float: left;"></i>
+                                <div *ngIf="username.errors['required']">Este campo es obligatorio</div>
+                                <div *ngIf="username.errors['minlength']">Este campo debe tener al menos 10 caracteres </div>
+                                <div *ngIf="username.errors['maxlength']">Este campo debe tener máximo 15 caracteres </div>
+                            </div> 
+
+                            
+                            <button pButton pRipple label="Crear Cuenta" icon="pi pi-user" class="w-full next-input"></button>
+
+                            <div class="flex align-items-center justify-content-between mb-6 next-input">
+                                <div class="flex align-items-center">    
+                                    <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" href="#login" routerLink="/auth/login">Ya tengo una cuenta</a>        
+                                </div>
+                            </div>
+                        
+                        
+                        </div>
+                    </form>     
+                                        
+
+                    <div *ngIf="isSuccessful">                
+                        <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer  w-full next-input" href="#" routerLink="/">Volver al inicio</a>        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

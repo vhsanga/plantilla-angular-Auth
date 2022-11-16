@@ -1,0 +1,72 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.png" alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0">                
+
+        <p-messages  [enableService]="true" > </p-messages>
+
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-5">
+                    <i class="pi pi-user icono-principal"></i>
+                    <div class="text-900 text-3xl font-medium mb-3">Login</div>
+                    <span class="text-600 font-medium line-height-3">¿No tiene una cuenta?</span>
+                    <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"  href="#registro" routerLink="/auth/registro" >Cree una cuenta hoy mismo</a>
+                </div>
+
+                <div>
+                    <form *ngIf="!isLoggedIn"
+                        name="form"
+                        (ngSubmit)="f.form.valid && onSubmit()"
+                        #f="ngForm"
+                        novalidate
+                        >
+                        <div>
+                            <span class="flex p-float-label">
+                                <input id="username" name="username" type="text" pInputText  class="w-full md:w-30rem mb-5"
+                                    [(ngModel)]="form.username"
+                                    required                            
+                                    minlength="3"
+                                    #username="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && username.errors }"> 
+                                <label for="username" class="block font-medium mb-2">Nombre de Usuario</label>                        
+                            </span>
+                            <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
+                                <i class="pi pi-angle-up" style="float: left;"></i>
+                                <div *ngIf="username.errors['required']">El nombre de usuario es obligatorio</div>
+                            </div>
+        
+        
+                            <span class="flex p-float-label next-input">
+                                <input id="password1" name="password1" type="password" pInputText  class="w-full md:w-30rem mb-5"
+                                    [(ngModel)]="form.password"
+                                    required
+                                    maxlength="25"
+                                    #password="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && password.errors }"> 
+                                <label for="password1" class="block font-medium mb-2">Password</label>
+                            </span>
+                            <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
+                                <i class="pi pi-angle-up" style="float: left;"></i>
+                                <div *ngIf="password.errors['required']">La contraseña es obligatoria</div>
+                            </div> 
+                            
+        
+                            <button pButton pRipple label="Ingresar" icon="pi pi-arrow-circle-right" class="w-full next-input"></button>
+                        </div>    
+                    </form>
+    
+    
+                    <div class="flex align-items-center justify-content-between mb-6 next-input">
+                        <div class="flex align-items-center">       
+                            <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" href="#" routerLink="/"><i class="pi pi-home"></i></a>     
+                        </div>
+                        <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" href="#recuperar" routerLink="/auth/recuperar">¿Ha olvidado su contraseña?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-loading></app-loading>
